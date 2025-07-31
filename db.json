@@ -1,0 +1,20 @@
+{
+  "goals": [
+    {
+      "id": 1,
+      "title": "Learn React",
+      "description": "Practice React by building projects",
+      "deadline": "2025-08-31",
+      "progress": 40,
+      "savings": 1000
+    },
+    {
+      "id": 2,
+      "title": "Workout Daily",
+      "description": "Do at least 30 minutes of workout every day",
+      "deadline": "2025-09-10",
+      "progress": 60,
+      "savings": 500
+    }
+  ]
+}

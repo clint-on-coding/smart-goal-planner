@@ -1,3 +1,7 @@
-# https://www.robotstxt.org/robotstxt.html
+# Allow all crawlers access to everything
 User-agent: *
 Disallow:
+
+# Sitemap reference (optional, add if you have a sitemap)
+# Sitemap: https://yourdomain.com/sitemap.xml
+

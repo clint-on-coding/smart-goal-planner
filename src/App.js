@@ -1,73 +1,43 @@
-import React, { useState, useEffect } from "react";
-import "./App.css";
+import React, { useEffect, useState } from 'react';
+import GoalForm from './components/GoalForm';
+import GoalList from './components/GoalList';
+import ProgressTracker from './components/ProgressTracker';
+import './App.css';
 
 function App() {
   const [goals, setGoals] = useState([]);
-  const [newGoal, setNewGoal] = useState("");
 
+  // Fetch goals on mount
   useEffect(() => {
-    fetch("http://localhost:3000/goals")
-      .then(res => res.json())
-      .then(data => setGoals(data));
+    fetch('http://localhost:3001/goals')
+      .then((res) => res.json())
+      .then((data) => setGoals(data));
   }, []);
 
-  const handleAdd = () => {
-    if (!newGoal.trim()) return;
+  // Add a new goal
+  function handleAddGoal(newGoal) {
+    setGoals([...goals, newGoal]);
+  }
 
-    const goalData = { title: newGoal, completed: false };
-
-    fetch("http://localhost:3000/goals", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(goalData),
-    })
-      .then(res => res.json())
-      .then(addedGoal => {
-        setGoals([...goals, addedGoal]);
-        setNewGoal("");
-      });
-  };
-
-  const toggleComplete = (goal) => {
-    fetch(`http://localhost:3000/goals/${goal.id}`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ completed: !goal.completed }),
-    })
-      .then(res => res.json())
-      .then(updatedGoal => {
-        setGoals(goals.map(g => g.id === updatedGoal.id ? updatedGoal : g));
-      });
-  };
+  // Delete a goal
+  function handleDeleteGoal(id) {
+    fetch(`http://localhost:3001/goals/${id}`, {
+      method: 'DELETE',
+    }).then(() => {
+      setGoals(goals.filter((goal) => goal.id !== id));
+    });
+  }
 
   return (
-    <div className="container">
-      <h1>Smart Goal Planner</h1>
-      <input
-        type="text"
-        placeholder="Enter a new goal"
-        value={newGoal}
-        onChange={(e) => setNewGoal(e.target.value)}
-      />
-      <button onClick={handleAdd}>Add Goal</button>
-      <ul>
-        {goals.map(goal => (
-          <li key={goal.id} style={{ textDecoration: goal.completed ? "line-through" : "none" }}>
-            <input
-              type="checkbox"
-              checked={goal.completed}
-              onChange={() => toggleComplete(goal)}
-            />
-            {goal.title}
-          </li>
-        ))}
-      </ul>
+    <div className="App">
+      <h1>🎯 Smart Goal Planner</h1>
+      <GoalForm onAddGoal={handleAddGoal} />
+      <ProgressTracker goals={goals} />
+      <GoalList goals={goals} onDelete={handleDeleteGoal} />
     </div>
   );
 }
 
 export default App;
+
+

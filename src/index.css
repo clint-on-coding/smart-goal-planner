@@ -2,20 +2,4 @@
   box-sizing: border-box;
 }
 
-input, button {
-  padding: 8px;
-  margin: 10px 5px;
-}
-
-button {
-  background-color: #3498db;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-button:hover {
-  background-color: #2980b9;
-}
 

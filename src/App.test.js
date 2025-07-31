@@ -1,8 +1,9 @@
-import { render, screen } from "@testing-library/react";
-import App from "./App";
+import { render, screen } from '@testing-library/react';
+import App from './App';
 
-test("renders Smart Goal Planner heading", () => {
+test('renders header text', () => {
   render(<App />);
-  const headingElement = screen.getByText(/Smart Goal Planner/i);
-  expect(headingElement).toBeInTheDocument();
+  const linkElement = screen.getByText(/smart goal planner/i);
+  expect(linkElement).toBeInTheDocument();
 });
+
